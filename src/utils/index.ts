@@ -43,8 +43,7 @@ export const removeURLSlash = (url: string) => {
   }
 };
 
-export const TERNOA_API_URL = process.env.TERNOA_API_URL
-  ? removeURLSlash(process.env.TERNOA_API_URL)
+export const ATELIER_STUDIO_API_URL = process.env.ATELIER_STUDIO_API_URL  ? removeURLSlash(process.env.ATELIER_STUDIO_API_URL)
   : "";
 
 export const decryptCookie = (cookie: string) => {

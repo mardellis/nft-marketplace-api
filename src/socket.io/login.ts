@@ -3,7 +3,7 @@
 import { Namespace, Socket } from "socket.io";
 import UserService from "../api/services/user";
 import L from "../common/logger";
-import { TERNOA_API_URL } from "../utils";
+import { ATELIER_STUDIO_API_URL } from "../utils";
 
 export default (io: Namespace) => {
   io.on("connection", async (socket: Socket) => {
@@ -22,7 +22,7 @@ export default (io: Namespace) => {
         } catch (err) {
           try {
             const body = { walletId }
-            const data = await fetch(`${TERNOA_API_URL}/api/users/create`, {
+            const data = await fetch(`${ATELIER_STUDIO_API_URL}/api/users/create`, {
               method: 'POST',
               body: JSON.stringify(body)
             })

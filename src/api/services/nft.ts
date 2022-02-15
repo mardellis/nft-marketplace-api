@@ -8,7 +8,7 @@ import NftViewModel from "../../models/nftView";
 import CategoryService from "./category"
 import { populateNFT } from "../helpers/nftHelpers";
 import QueriesBuilder from "./gqlQueriesBuilder";
-import { decryptCookie, TERNOA_API_URL, TIME_BETWEEN_SAME_USER_VIEWS } from "../../utils";
+import { decryptCookie, ATELIER_STUDIO_API_URL, TIME_BETWEEN_SAME_USER_VIEWS } from "../../utils";
 import { canAddToSeriesQuery, addCategoriesNFTsQuery, getHistoryQuery, getSeriesStatusQuery, NFTBySeriesQuery, NFTQuery, NFTsQuery, statNFTsUserQuery, getTotalOnSaleQuery } from "../validators/nftValidators";
 import { IUser } from "../../interfaces/IUser";
 import CategoryModel from "../../models/category";
@@ -47,7 +47,7 @@ export class NFTService {
       }
       // Liked only
       if (query.filter?.liked) {
-        const data = await fetch(`${TERNOA_API_URL}/api/users/${query.filter.liked}?populateLikes=${true}`)
+        const data = await fetch(`${ATELIER_STUDIO_API_URL}/api/users/${query.filter.liked}?populateLikes=${true}`)
         const user = await data.json() as IUser
         query.filter.series = user.likedNFTs.length > 0 ? user.likedNFTs.map(x => x.serieId) : []
       }
@@ -59,7 +59,7 @@ export class NFTService {
         const sortByLikes = sortArray.find(x => x.split(':')[0] === "likes")
         if (sortByLikes){
           const likesSort = sortByLikes.split(':')[1]
-          const likesResult = await fetch(`${TERNOA_API_URL}/api/nftLikes/&sort=${likesSort}`)
+          const likesResult = await fetch(`${ATELIER_STUDIO_API_URL}/api/nftLikes/&sort=${likesSort}`)
           likesData = (await likesResult.json()).likesRanking
           NFTs = NFTs.map(x => {
             const likeAggregatedObject = likesData.docs.find(y => y._id === x.serieId)

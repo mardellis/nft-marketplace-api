@@ -4,7 +4,7 @@ import { IUser } from "../../interfaces/IUser";
 import UserViewModel from "../../models/userView";
 import QueriesBuilder from "./gqlQueriesBuilder";
 import { AccountResponse, Account } from "../../interfaces/graphQL";
-import { TIME_BETWEEN_SAME_USER_VIEWS, TERNOA_API_URL } from "../../utils";
+import { TIME_BETWEEN_SAME_USER_VIEWS, ATELIER_STUDIO_API_URL } from "../../utils";
 import { getAccountBalanceQuery, getUserQuery } from "../validators/userValidators";
 
 const indexerUrl =
@@ -21,7 +21,7 @@ export class UserService {
     query: getUserQuery
   ): Promise<IUser> {
     try {
-      const data = await fetch(`${TERNOA_API_URL}/api/users/${query.id}?populateLikes=${query.populateLikes ? query.populateLikes : false}`)
+      const data = await fetch(`${ATELIER_STUDIO_API_URL}/api/users/${query.id}?populateLikes=${query.populateLikes ? query.populateLikes : false}`)
       const user = await data.json() as IUser
       let viewsCount = 0
       if (!user || (user as any).errors?.length>0) throw new Error();

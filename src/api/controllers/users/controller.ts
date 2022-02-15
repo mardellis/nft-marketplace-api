@@ -1,6 +1,6 @@
 import UserService from "../../services/user";
 import { NextFunction, Request, Response } from "express";
-import { TERNOA_API_URL, decryptCookie } from "../../../utils";
+import { ATELIER_STUDIO_API_URL, decryptCookie } from "../../../utils";
 import { validationGetAccountBalance, validationGetUser, validationLikeUnlike, validationReviewRequested } from "../../validators/userValidators";
 
 export class Controller {
@@ -10,7 +10,7 @@ export class Controller {
     next: NextFunction
   ): Promise<void> {
     try {
-      res.redirect(`${TERNOA_API_URL}${req.originalUrl}`)
+      res.redirect(`${ATELIER_STUDIO_API_URL}${req.originalUrl}`)
     } catch (err) {
       next(err);
     }
@@ -22,7 +22,7 @@ export class Controller {
     next: NextFunction
   ): Promise<void> {
     try {
-      res.redirect(307, `${TERNOA_API_URL}${req.originalUrl}`)
+      res.redirect(307, `${ATELIER_STUDIO_API_URL}${req.originalUrl}`)
     } catch (err) {
       next(err);
     }
@@ -52,7 +52,7 @@ export class Controller {
       const { id } = req.params
       const queryValues = validationReviewRequested({id, cookie})
       if(decryptCookie(queryValues.cookie) === queryValues.id){
-        res.redirect(307, `${TERNOA_API_URL}${req.originalUrl}`)
+        res.redirect(307, `${ATELIER_STUDIO_API_URL}${req.originalUrl}`)
       }else{
         throw new Error('Unvalid authentication')
       }
@@ -80,7 +80,7 @@ export class Controller {
     next: NextFunction
   ): Promise<void> {
     try {
-      res.redirect(307, `${TERNOA_API_URL}${req.originalUrl}`)
+      res.redirect(307, `${ATELIER_STUDIO_API_URL}${req.originalUrl}`)
     } catch (err) {
       next(err)
     }
@@ -96,7 +96,7 @@ export class Controller {
       const { cookie } = JSON.parse(req.body)
       const queryValues = validationLikeUnlike({walletId, cookie})
       if(decryptCookie(queryValues.cookie) === queryValues.walletId){
-        res.redirect(307, `${TERNOA_API_URL}${req.originalUrl}`)
+        res.redirect(307, `${ATELIER_STUDIO_API_URL}${req.originalUrl}`)
       }else{
         throw new Error('Unvalid authentication')
       }
@@ -115,7 +115,7 @@ export class Controller {
       const { cookie } = JSON.parse(req.body)
       const queryValues = validationLikeUnlike({walletId, cookie})
       if(decryptCookie(queryValues.cookie) === queryValues.walletId){
-        res.redirect(307, `${TERNOA_API_URL}${req.originalUrl}`)
+        res.redirect(307, `${ATELIER_STUDIO_API_URL}${req.originalUrl}`)
       }else{
         throw new Error('Unvalid authentication')
       }
@@ -130,7 +130,7 @@ export class Controller {
     next: NextFunction
   ): Promise<void>{
     try{
-      res.redirect(`${TERNOA_API_URL}${req.originalUrl}`)
+      res.redirect(`${ATELIER_STUDIO_API_URL}${req.originalUrl}`)
     }catch(err){
       next(err)
     }

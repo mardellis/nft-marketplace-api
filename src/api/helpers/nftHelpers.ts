@@ -8,11 +8,11 @@ import { IUser } from "src/interfaces/IUser";
 import { NFTsQuery } from "../validators/nftValidators";
 
 const ipfsGateways = {
-  ternoaPinataIpfsGateaway: `https://ternoa.mypinata.cloud/ipfs`,
+  AtelierStudioInfuraIpfsGateaway: `https://ipfs.infura.io:5001`,
   cloudfareIpfsGateaway: `https://cloudflare-ipfs.com/ipfs`,
-  ternoaIpfsGateway: `https://ipfs.ternoa.dev/ipfs`,
+  atelierstudioIpfsGateway: `https://ipfs.atelierstudio.dev/ipfs`,
 };
-const defaultIpfsGateway = ipfsGateways.ternoaIpfsGateway;
+const defaultIpfsGateway = ipfsGateways.atelierstudioIpfsGateway;
 const ipfsGatewayUri =
   (process.env.IPFS_GATEWAY && removeURLSlash(process.env.IPFS_GATEWAY)) ||
   defaultIpfsGateway;

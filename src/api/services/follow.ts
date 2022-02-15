@@ -2,7 +2,7 @@ import FollowModel from "../../models/follow";
 import { IUser } from "../../interfaces/IUser";
 import { CustomResponse } from "../../interfaces/graphQL";
 import fetch from "node-fetch";
-import { LIMIT_MAX_PAGINATION, TERNOA_API_URL } from '../../utils'
+import { LIMIT_MAX_PAGINATION, ATELIER_STUDIO_API_URL } from '../../utils'
 import { countFollowersFollowingQuery, followUnfollowQuery, getFollowersFollowingQuery, isUserFollowingQuery } from "../validators/followValidators";
 
 export class FollowService {
@@ -15,7 +15,7 @@ export class FollowService {
     try {
       const followerWalletIds: string[] = (await FollowModel.find({ followed: query.walletId })).map(x => x.follower)
       const filter: any = {walletIds: followerWalletIds, ...query.filter}
-      const data = await fetch(`${TERNOA_API_URL}/api/users/?filter=${JSON.stringify(filter)}&pagination=${JSON.stringify(query.pagination)}`)
+      const data = await fetch(`${ATELIER_STUDIO_API_URL}/api/users/?filter=${JSON.stringify(filter)}&pagination=${JSON.stringify(query.pagination)}`)
       return await data.json() as CustomResponse<IUser>;
     } catch (err) {
       throw new Error("Followers can't be fetched");
@@ -31,7 +31,7 @@ export class FollowService {
     try {
       const followedWalletIds: string[] = (await FollowModel.find({ follower: query.walletId })).map(x => x.followed)
       const filter: any = {walletIds: followedWalletIds, ...query.filter}
-      const data = await fetch(`${TERNOA_API_URL}/api/users/?filter=${JSON.stringify(filter)}&pagination=${JSON.stringify(query.pagination)}`)
+      const data = await fetch(`${ATELIER_STUDIO_API_URL}/api/users/?filter=${JSON.stringify(filter)}&pagination=${JSON.stringify(query.pagination)}`)
       return await data.json() as CustomResponse<IUser>;
     } catch (err) {
       throw new Error("Followings can't be fetched");
@@ -75,7 +75,7 @@ export class FollowService {
       if (follow) throw new Error("user is already following")
       follow = new FollowModel({followed: query.walletIdFollowed, follower: query.walletIdFollower});
       await follow.save()
-      const data = await fetch(`${TERNOA_API_URL}/api/users/${query.walletIdFollowed}`)
+      const data = await fetch(`${ATELIER_STUDIO_API_URL}/api/users/${query.walletIdFollowed}`)
       const userFollowed = await data.json() as IUser
       return userFollowed;
     } catch (err) {
@@ -93,7 +93,7 @@ export class FollowService {
         const follow = await FollowModel.findOne({followed: query.walletIdFollowed, follower: query.walletIdFollower})
         if (!follow) throw new Error("user is already not following")
         await follow.delete()
-        const data = await fetch(`${TERNOA_API_URL}/api/users/${query.walletIdFollowed}`)
+        const data = await fetch(`${ATELIER_STUDIO_API_URL}/api/users/${query.walletIdFollowed}`)
         const userFollowed = await data.json()
         return userFollowed as IUser;
       } catch (err) {
